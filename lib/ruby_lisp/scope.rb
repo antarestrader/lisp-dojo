@@ -11,7 +11,10 @@ module RubyLisp
   
   class TopLevelScope < Scope
     def initialize
-      variables["+"] = RubyLisp::Function.new
+      %w{+ - / * > >= < <=}.each do |m|
+        eval "variables['#{m}'] = RubyLisp::Function.new {|a,b| a#{m}b}"
+      end
+      variables['='] = RubyLisp::Function.new {|a,b| a==b}
     end
   end
 end

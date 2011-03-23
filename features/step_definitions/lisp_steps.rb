@@ -23,7 +23,7 @@ end
 Then /^I should get "([^"]*)"$/ do |result|
   if @error
     p @error
-    puts @error.backtrace
+    # puts @error.backtrace
   end
   @error.should be_nil
   @result.should == eval(result)
