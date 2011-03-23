@@ -18,3 +18,12 @@ describe RubyLisp::List do
   end
   
 end
+
+describe "define" do
+  before :each do
+    @scope = RubyLisp::TopLevelScope.new
+  end
+  it "should define a value distructivally" do
+    @result = RubyLisp.parse("(define k 25)\n(define k 7)").eval(@scope)
+  end
+end

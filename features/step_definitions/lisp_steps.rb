@@ -23,10 +23,9 @@ end
 Then %r/^I should get "([^"]*)"$/ do |result|
   if @error
     p @error
-    # puts @error.backtrace
+    puts @error.backtrace
   end
   @error.should be_nil
-  puts @scope.variables unless @result == eval(result)
   @result.should == eval(result)
 end
 
