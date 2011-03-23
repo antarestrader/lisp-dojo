@@ -41,11 +41,11 @@ module RubyLisp
       variables['lambda'] = RubyLisp::Function.new(:eval=>false, :chunck=> true, :name=>'lambda') do |function|
         outer_scope = function.shift
         params_list = function.shift.eval(Scope.new)
-        RubyLisp::Function.new(:eval=>false,:chunck=> true) do |params|
-          scope = Scope.new(params.shift)
+        RubyLisp::Function.new(:chunck=> true) do |params|
+          scope = Scope.new(outer_scope)
           params_list.zip(params).each do |varset|
             name = varset[0].value
-            value = varset[1].eval(scope.parent)
+            value = varset[1]
             scope[name] = value
           end
           function.map { |cell| cell.eval(scope) }.last 

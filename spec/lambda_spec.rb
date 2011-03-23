@@ -27,4 +27,18 @@ describe "define" do
     EOF
     @result.should == 720
   end
+  
+  it "Functions are lexical closures" do
+    @result = RubyLisp.parse(<<-EOF).eval(@scope)
+        (define add (lambda (x)(lambda (y)(+ x y)
+                               )
+                    )
+        )
+
+        (define add2 (add 2))
+        (add2 4)
+
+    EOF
+    @result.should == 6
+  end
 end
