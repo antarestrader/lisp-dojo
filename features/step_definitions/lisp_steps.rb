@@ -20,12 +20,13 @@ When /^I run the program$/ do |source|
   end
 end
 
-Then /^I should get "([^"]*)"$/ do |result|
+Then %r/^I should get "([^"]*)"$/ do |result|
   if @error
     p @error
     # puts @error.backtrace
   end
   @error.should be_nil
+  puts @scope.variables unless @result == eval(result)
   @result.should == eval(result)
 end
 

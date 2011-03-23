@@ -16,8 +16,10 @@ module RubyLisp
   
   module Program
     def eval(scope)
-      captures[:cell].map { |cell| cell.eval(scope) }.last
-    end
+      ret = captures[:cell].map { |cell| cell.eval(scope) }.last
+      raise RuntimeError, "The value #{ret.value} is not in scope" if ret.kind_of? Citrus::Match
+      ret
+     end
   end
   
   module Cell
