@@ -21,6 +21,9 @@ module RubyLisp
       variables['if'] = RubyLisp::Function.new(:eval=>false) do |pred,t,f|
         pred.eval(self) ? t.eval(self) : f.eval(self)
       end
+      variables['lambda'] = RubyLisp::Function.new(:eval=>false) do |params, function|
+        RubyLisp::Function.new { function.eval(self) }
+      end
     end
   end
 end
